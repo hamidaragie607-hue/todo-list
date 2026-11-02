@@ -9,7 +9,9 @@ for category in categories:
     while True:
         try:
             hours = float(input(f"how many hours a day for {activity}? "))
-            break
+            if hours >= 0 and hours <= 24:
+                break
+            print("please enter a number between 0 and 24! ")
         except ValueError:
             print("please enter a number")
     entry = {
