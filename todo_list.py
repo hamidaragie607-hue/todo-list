@@ -4,6 +4,16 @@ categories = ["Faith", "Learning", "Career", "body", "Off time", "Sleep"]
 for number, category in enumerate(categories, start=1):
     print(f"{number}.{category}")
 plan = []
+while True:
+    try:
+        prayers_planned = int(input("how many times will you pray today? "))
+        if prayers_planned >= 0 and prayers_planned <= 10:
+            break
+        print("please enter a number between 0 and 10!")
+    except ValueError:
+        print("please enter a number!")
+
+
 for category in categories:
     activity = input(f"what will you do for {category}? ")
     while True:
