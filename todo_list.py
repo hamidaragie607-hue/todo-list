@@ -15,10 +15,15 @@ while True:
 
 
 for category in categories:
-    activity = input(f"what will you do for {category}? ")
+    if category == "Sleep":
+        activity = "Sleep"
+        question = "how many hours do you plan to sleep? "
+    else:
+        activity = input(f"what will you do for {category}? ")
+        question = f"how many hours a day for {activity}? "
     while True:
         try:
-            hours = float(input(f"how many hours a day for {activity}? "))
+            hours = float(input(question))
             if hours >= 0 and hours <= 24:
                 break
             print("please enter a number between 0 and 24! ")
@@ -44,6 +49,19 @@ for item in plan:
         print("you sleep less than 8 hours!")
 
 print("evening review".upper())
+while True:
+    try:
+        prayers_done = int(input("how many times did you pray today? "))
+        if prayers_done >= 0 and prayers_done <= 10:
+            break
+        print("please enter a number between 0 and 10 !")
+    except ValueError:
+        print("please enter a number!")
+if prayers_done < prayers_planned:
+    missed_prayers = prayers_planned - prayers_done
+    print(f"you missed: {missed_prayers} prayers today! ")
+else:
+    print("you prayed all of your prayers")
 done = 0
 for item in plan:
     review = input(
