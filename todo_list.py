@@ -1,3 +1,26 @@
+def ask_duration(question):
+    while True:
+        try:
+            text = input(question).strip().lower()
+            number_text = text.rstrip("abcdefghijklmnopqrstuvwxyz ")
+            unit = text.lstrip("1234567890. ")
+            hours = float(number_text)
+            if unit.startswith("m"):
+                hours = hours / 60
+            elif unit.startswith("h"):
+                hours = hours
+            else:
+                print("please use minutes or hours!")
+                continue
+            if hours >= 0 and hours <= 24:
+                break
+            else:
+                print("please write a number between 0 and 24")
+        except ValueError:
+            print("please type a number and a unit, like 30 min")
+    return hours
+
+
 name = input("enter your name:").strip().title()
 print(f"welcome {name} how do you want to spend your day?")
 categories = ["Faith", "Learning", "Career", "body", "Off time", "Sleep"]
@@ -17,18 +40,11 @@ while True:
 for category in categories:
     if category == "Sleep":
         activity = "Sleep"
-        question = "how many hours do you plan to sleep? "
+        question = "how long do you plan to sleep "
     else:
         activity = input(f"what will you do for {category}? ")
-        question = f"how many hours a day for {activity}? "
-    while True:
-        try:
-            hours = float(input(question))
-            if hours >= 0 and hours <= 24:
-                break
-            print("please enter a number between 0 and 24! ")
-        except ValueError:
-            print("please enter a number")
+        question = f"how long for {activity}? "
+    hours = ask_duration(question)
     entry = {
         "category": category,
         "activity": activity,
@@ -64,10 +80,20 @@ else:
     print("you prayed all of your prayers")
 done = 0
 for item in plan:
-    review = input(
-        f"did you: {item['activity']} (yes/no?) ").strip().lower()
-    if review == "yes":
-        done += 1
+    if item['category'] == "Sleep":
+        slept = ask_duration("how long did you sleep? ")
+        if slept < 8:
+            print("you have to fix your sleep schedule! go to bed early")
+        else:
+            print("great you slept very well")
+            done += 1
+        review = input(
+            f"did you: {item['activity']} (yes/no?) ").strip().lower()
+    else:
+        review = input(
+            f"did you: {item['activity']} (yes/no?) ").strip().lower()
+        if review == "yes":
+            done += 1
 result = done / len(plan)
 score = round(result * 100)
 print(f"score:{score}% ")
