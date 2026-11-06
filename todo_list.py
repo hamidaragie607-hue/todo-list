@@ -70,6 +70,7 @@ for item in plan:
         print("you sleep less than 8 hours!")
 
 print("evening review".upper())
+forgot = []
 prayers_done = ask_whole_number("how many times did you pray today? ", 0, 10)
 if prayers_done < prayers_planned:
     missed_prayers = prayers_planned - prayers_done
@@ -90,6 +91,12 @@ for item in plan:
             f"did you: {item['activity']} (yes/no?) ").strip().lower()
         if review == "yes":
             done += 1
+        else:
+            forgot.append(item['activity'])
+if len(forgot) > 0:
+    print("=====what you forgot today=====".upper())
+    for task in forgot:
+        print(f"- {task}")
 result = done / len(plan)
 score = round(result * 100)
 print(f"score:{score}% ")
