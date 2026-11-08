@@ -1,3 +1,7 @@
+from datetime import date
+import json
+
+
 def ask_duration(question):
     while True:
         try:
@@ -106,3 +110,19 @@ elif score >= 40:
     print(f"{name}, you were not that much productive ,you will improve tomorrow! ")
 else:
     print(f"{name}, you were not productive today!!")
+today = {
+    "date": str(date.today()),
+    "name": name,
+    "score": score,
+    "plan": plan,
+    "forgot": forgot
+}
+try:
+    with open("days.json", "r") as file:
+        days = json.load(file)
+except FileNotFoundError:
+    days = []
+days.append(today)
+
+with open("days.json", "w") as file:
+    json.dump(days, file, indent=4)
