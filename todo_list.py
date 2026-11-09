@@ -43,6 +43,7 @@ print(f"welcome {name} how do you want to spend your day?")
 categories = ["Faith", "Learning", "Career", "body", "Off time", "Sleep"]
 for number, category in enumerate(categories, start=1):
     print(f"{number}.{category}")
+improve = input("what do you want to improve today? ").strip()
 plan = []
 prayers_planned = ask_whole_number(
     "how many times you planned to pray?", 0, 10)
@@ -101,6 +102,13 @@ if len(forgot) > 0:
     print("=====what you forgot today=====".upper())
     for task in forgot:
         print(f"- {task}")
+if improve != "":
+    print(f"your goal today: {improve}")
+    check = input(f"did you work on {improve}? (yes / no) ").strip().lower()
+    if check == "yes":
+        print("good you improve your goal")
+    else:
+        print("try to improve it tomorrow!")
 result = done / len(plan)
 score = round(result * 100)
 print(f"score:{score}% ")
@@ -115,7 +123,8 @@ today = {
     "name": name,
     "score": score,
     "plan": plan,
-    "forgot": forgot
+    "forgot": forgot,
+    "improve": improve
 }
 try:
     with open("days.json", "r") as file:
