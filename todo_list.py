@@ -126,3 +126,7 @@ days.append(today)
 
 with open("days.json", "w") as file:
     json.dump(days, file, indent=4)
+print("your last 5 days:".upper())
+recent = days[-5:]
+for day in recent:
+    print(f"{day['date']}: {day['score']}%")
