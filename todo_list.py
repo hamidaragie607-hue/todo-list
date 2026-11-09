@@ -122,8 +122,10 @@ try:
         days = json.load(file)
 except FileNotFoundError:
     days = []
-days.append(today)
-
+if len(days) > 0 and days[-1]["date"] == today["date"]:
+    days[-1] = today
+else:
+    days.append(today)
 with open("days.json", "w") as file:
     json.dump(days, file, indent=4)
 print("your last 5 days:".upper())
