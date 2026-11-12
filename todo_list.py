@@ -38,6 +38,19 @@ def ask_whole_number(question, low, high):
     return number
 
 
+def calculate_score(done, total):
+    return round(done / total * 100)
+
+
+def get_message(score, name):
+    if score >= 70:
+        return f"{name}, you were productive today!"
+    elif score >= 40:
+        return f"{name}, you were not that much productive ,you will improve tomorrow! "
+    else:
+        return f"{name}, you were not productive today!!"
+
+
 name = input("enter your name:").strip().title()
 print(f"welcome {name} how do you want to spend your day?")
 categories = ["Faith", "Learning", "Career", "body", "Off time", "Sleep"]
@@ -109,15 +122,9 @@ if improve != "":
         print("good you improve your goal")
     else:
         print("try to improve it tomorrow!")
-result = done / len(plan)
-score = round(result * 100)
+score = calculate_score(done, len(plan))
 print(f"score:{score}% ")
-if score >= 70:
-    print(f"{name}, you were productive today!")
-elif score >= 40:
-    print(f"{name}, you were not that much productive ,you will improve tomorrow! ")
-else:
-    print(f"{name}, you were not productive today!!")
+print(get_message(score, name))
 today = {
     "date": str(date.today()),
     "name": name,
